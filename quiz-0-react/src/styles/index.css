@@ -2,17 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@import "tailwindcss";
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@theme {
+  --color-b-yellow: #FFDE03;
+  --color-b-red: #FF5252;
+  --color-b-blue: #1A4CC1;
+  --color-b-black: #000000;
+  --color-b-white: #FFFFFF;
+  /* Bold Borders & Shadows */
+  --spacing-b-thick: 4px;
+  --shadow-b-flat: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+  --shadow-b-pressed: 2px 2px 0px 0px rgba(0, 0, 0, 1);
 }
