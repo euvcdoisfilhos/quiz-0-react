@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -10,4 +11,21 @@
   --spacing-b-thick: 4px;
   --shadow-b-flat: 4px 4px 0px 0px rgba(0, 0, 0, 1);
   --shadow-b-pressed: 2px 2px 0px 0px rgba(0, 0, 0, 1);
+
+  /*Neo-Brutalist Colors*/
+  --color-neo-yellow: #FFDE59;
+  --color-neo-purple: #8E44AD;
+  --color-neo-red: #FF4757;
+  --color-neo-green: #2ECC71;
+  --color-neo-bg: #F3F4F6;
+
+/*Neo-Brutalist Fonts*/
+  --font-sans: "Space Grotesk", sans-serif;
+  --font-bold: "Space Grotesk", sans-serif;
+
+
+  /*Neo-Brutalist Shadows*/
+  --shadow-neo: 4px 4px 0px 0px rgba(0,0,0,1);
+  --shadow-neo-sm: 2px 2px 0px 0px rgba(0,0,0,1);
+  --shadow-neo-hover: 6px 6px 0px 0px rgba(0,0,0,1);
 }
