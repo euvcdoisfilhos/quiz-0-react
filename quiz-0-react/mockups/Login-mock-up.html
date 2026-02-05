@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neo-Brutalist Auth</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Space Grotesk"', 'sans-serif'],
+                    },
+                    colors: {
+                        'neo-yellow': '#FFDE59',
+                        'neo-purple': '#8E44AD',
+                        'neo-red': '#FF4757',
+                        'neo-green': '#2ECC71',
+                        'neo-bg': '#F3F4F6'
+                    },
+                    boxShadow: {
+                        'neo': '4px 4px 0px 0px rgba(0,0,0,1)',
+                        'neo-sm': '2px 2px 0px 0px rgba(0,0,0,1)',
+                        'neo-hover': '6px 6px 0px 0px rgba(0,0,0,1)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style type="text/tailwindcss">
+        @layer components {
+            .neo-input {
+                @apply w-full border-4 border-black p-3 font-bold text-lg outline-none transition-all shadow-neo bg-white placeholder-gray-500;
+            }
+            .neo-input:focus {
+                @apply bg-yellow-200 -translate-y-1 -translate-x-1 shadow-neo-hover;
+            }
+            .neo-btn {
+                @apply w-full border-4 border-black bg-black text-white font-bold py-3 text-lg uppercase tracking-wider shadow-neo transition-all cursor-pointer;
+            }
+            .neo-btn:hover {
+                @apply bg-gray-900 -translate-y-1 -translate-x-1 shadow-neo-hover;
+            }
+            .neo-btn:active {
+                @apply translate-y-0 translate-x-0 shadow-none;
+            }
+            .social-btn {
+                @apply flex items-center justify-center border-4 border-black p-3 shadow-neo transition-all cursor-pointer hover:-translate-y-1 hover:-translate-x-1 hover:shadow-neo-hover active:translate-y-0 active:translate-x-0 active:shadow-none bg-white;
+            }
+        }
+
+        /* Custom Checkbox Styling */
+        .custom-checkbox input:checked + div {
+            background-color: #000;
+        }
+        .custom-checkbox input:checked + div::after {
+            content: '✔';
+            display: block;
+            color: #fff;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        /* Shake Animation */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        .shake-animation {
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+        }
+
+        /* Strength Meter Transitions */
+        .strength-bar {
+            transition: width 0.3s ease, background-color 0.3s ease;
+        }
+    </style>
+</head>
+
+<body class="bg-neo-bg text-black overflow-x-hidden">
+
+    <div class="min-h-screen flex flex-col lg:flex-row">
+
+        <div
+            class="lg:w-1/2 w-full bg-neo-yellow border-b-4 lg:border-b-0 lg:border-r-4 border-black flex flex-col items-center justify-center p-8 relative overflow-hidden">
+            <div class="absolute inset-0 opacity-10"
+                style="background-image: radial-gradient(circle, #000 2px, transparent 2.5px); background-size: 20px 20px;">
+            </div>
+
+            <div class="max-w-md w-full relative z-10">
+                <div
+                    class="bg-white border-4 border-black shadow-neo p-8 rotate-1 transform transition hover:rotate-0 duration-300">
+                    <div class="bg-black text-white inline-block px-2 py-1 font-bold mb-4 border-2 border-transparent">
+                        DID YOU KNOW?
+                    </div>
+                    <h2 class="text-4xl font-bold mb-4 leading-tight">Passwords are like underwear.</h2>
+                    <p class="text-lg font-medium mb-6">Change them often, keep them private, and never share them with
+                        anyone.</p>
+
+                    <div
+                        class="h-40 bg-neo-purple border-4 border-black shadow-neo flex items-center justify-center overflow-hidden relative">
+                        <div
+                            class="w-20 h-20 bg-white border-4 border-black rounded-full flex items-center justify-center relative">
+                            <div id="mascot-pupil" class="w-8 h-8 bg-black rounded-full transition-all duration-100">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lg:w-1/2 w-full flex items-center justify-center p-6 lg:p-12 bg-white relative">
+            <div class="w-full max-w-md">
+
+                <div class="flex mb-8 border-4 border-black shadow-neo bg-gray-100 p-1">
+                    <button id="tab-login" onclick="switchTab('login')"
+                        class="flex-1 py-2 font-bold text-center border-r-4 border-transparent bg-yellow-400 border-black transition-all">
+                        LOGIN
+                    </button>
+                    <button id="tab-signup" onclick="switchTab('signup')"
+                        class="flex-1 py-2 font-bold text-center text-gray-500 hover:text-black transition-all">
+                        SIGN UP
+                    </button>
+                </div>
+
+                <div id="auth-container" class="relative">
+
+                    <h1 id="form-title" class="text-5xl font-bold mb-2">Welcome Back.</h1>
+                    <p class="text-gray-600 font-bold mb-8">Enter your details to access the mainframe.</p>
+
+                    <form id="auth-form" onsubmit="handleSubmit(event)" class="space-y-5">
+
+                        <div id="name-group" class="hidden">
+                            <label class="block font-bold mb-1 ml-1 uppercase text-sm">Full Name</label>
+                            <input type="text" placeholder="John Doe" class="neo-input">
+                        </div>
+
+                        <div>
+                            <label class="block font-bold mb-1 ml-1 uppercase text-sm">Email Address</label>
+                            <input type="email" id="email" placeholder="you@example.com" class="neo-input" required>
+                            <p id="email-error"
+                                class="hidden text-white bg-neo-red border-2 border-black font-bold text-xs mt-2 p-1 px-2 inline-block shadow-neo-sm">
+                                Invalid email format</p>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between items-center mb-1 ml-1">
+                                <label class="block font-bold uppercase text-sm">Password</label>
+                                <a href="#" id="forgot-pass"
+                                    class="text-xs font-bold underline hover:text-neo-purple">Forgot Password?</a>
+                            </div>
+                            <div class="relative">
+                                <input type="password" id="password" placeholder="••••••••" class="neo-input pr-12"
+                                    required>
+                                <button type="button" onclick="togglePassword()"
+                                    class="absolute right-4 top-1/2 transform -translate-y-1/2 text-xl focus:outline-none">
+                                    <i id="eye-icon" class="fa-regular fa-eye"></i>
+                                </button>
+                            </div>
+
+                            <div id="strength-container" class="mt-3 hidden">
+                                <div class="flex h-2 w-full border-2 border-black bg-gray-200 overflow-hidden">
+                                    <div id="strength-1"
+                                        class="strength-bar w-0 bg-neo-red border-r-2 border-black h-full"></div>
+                                    <div id="strength-2"
+                                        class="strength-bar w-0 bg-yellow-400 border-r-2 border-black h-full"></div>
+                                    <div id="strength-3" class="strength-bar w-0 bg-neo-green h-full"></div>
+                                </div>
+                                <p id="strength-text" class="text-xs font-bold mt-1 text-right">WEAK</p>
+                            </div>
+                        </div>
+
+                        <div id="terms-group" class="hidden">
+                            <label class="custom-checkbox flex items-center cursor-pointer">
+                                <div class="relative">
+                                    <input type="checkbox" class="sr-only">
+                                    <div
+                                        class="w-6 h-6 border-4 border-black mr-3 bg-white shadow-neo-sm transition-colors">
+                                    </div>
+                                </div>
+                                <span class="font-bold text-sm">I agree to the <span
+                                        class="underline decoration-2">Terms & Conditions</span></span>
+                            </label>
+                        </div>
+
+                        <button type="submit" id="submit-btn" class="neo-btn mt-4">
+                            LOG IN
+                        </button>
+                    </form>
+
+                    <div class="flex items-center my-8">
+                        <div class="flex-grow h-1 bg-black"></div>
+                        <span class="px-4 font-bold bg-white border-2 border-black mx-2 shadow-neo-sm text-sm">OR</span>
+                        <div class="flex-grow h-1 bg-black"></div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <button class="social-btn text-neo-purple group">
+                            <i class="fa-brands fa-google text-2xl group-hover:scale-110 transition-transform"></i>
+                            <span class="ml-2 font-bold text-black">Google</span>
+                        </button>
+                        <button class="social-btn text-black group">
+                            <i class="fa-brands fa-github text-2xl group-hover:scale-110 transition-transform"></i>
+                            <span class="ml-2 font-bold text-black">Github</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // State
+        let isLogin = true;
+
+        // Elements
+        const form = document.getElementById('auth-form');
+        const formTitle = document.getElementById('form-title');
+        const submitBtn = document.getElementById('submit-btn');
+        const nameGroup = document.getElementById('name-group');
+        const termsGroup = document.getElementById('terms-group');
+        const forgotLink = document.getElementById('forgot-pass');
+        const strengthContainer = document.getElementById('strength-container');
+        const tabLogin = document.getElementById('tab-login');
+        const tabSignup = document.getElementById('tab-signup');
+        const passwordInput = document.getElementById('password');
+        const eyeIcon = document.getElementById('eye-icon');
+        const pupil = document.getElementById('mascot-pupil');
+
+        // Toggle Login/Signup Mode
+        function switchTab(mode) {
+            isLogin = mode === 'login';
+
+            if (isLogin) {
+                // UI Logic for Login
+                tabLogin.classList.add('bg-yellow-400', 'border-black', 'text-black');
+                tabLogin.classList.remove('text-gray-500');
+
+                tabSignup.classList.remove('bg-yellow-400', 'border-black', 'text-black');
+                tabSignup.classList.add('text-gray-500');
+
+                formTitle.textContent = "Welcome Back.";
+                submitBtn.textContent = "LOG IN";
+
+                nameGroup.classList.add('hidden');
+                termsGroup.classList.add('hidden');
+                strengthContainer.classList.add('hidden');
+                forgotLink.classList.remove('hidden');
+            } else {
+                // UI Logic for Signup
+                tabSignup.classList.add('bg-yellow-400', 'border-black', 'text-black');
+                tabSignup.classList.remove('text-gray-500');
+
+                tabLogin.classList.remove('bg-yellow-400', 'border-black', 'text-black');
+                tabLogin.classList.add('text-gray-500');
+
+                formTitle.textContent = "Join the Club.";
+                submitBtn.textContent = "CREATE ACCOUNT";
+
+                nameGroup.classList.remove('hidden');
+                termsGroup.classList.remove('hidden');
+                strengthContainer.classList.remove('hidden');
+                forgotLink.classList.add('hidden');
+            }
+        }
+
+        // Password Visibility Toggle
+        function togglePassword() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+
+            if (type === 'text') {
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            } else {
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            }
+        }
+
+        // Real-time Password Strength Visualization
+        passwordInput.addEventListener('input', (e) => {
+            if (isLogin) return; // Don't show on login
+
+            const val = e.target.value;
+            const s1 = document.getElementById('strength-1');
+            const s2 = document.getElementById('strength-2');
+            const s3 = document.getElementById('strength-3');
+            const text = document.getElementById('strength-text');
+
+            // Reset
+            s1.style.width = '0%'; s2.style.width = '0%'; s3.style.width = '0%';
+
+            if (val.length > 0) {
+                s1.style.width = '33%';
+                text.textContent = "WEAK";
+                text.className = "text-xs font-bold mt-1 text-right text-neo-red";
+            }
+            if (val.length > 5 && /[0-9]/.test(val)) {
+                s2.style.width = '33%';
+                text.textContent = "MEDIUM";
+                text.className = "text-xs font-bold mt-1 text-right text-yellow-600";
+            }
+            if (val.length > 8 && /[0-9]/.test(val) && /[^A-Za-z0-9]/.test(val)) {
+                s3.style.width = '34%';
+                text.textContent = "STRONG";
+                text.className = "text-xs font-bold mt-1 text-right text-neo-green";
+            }
+        });
+
+        // Email Validation (Mock)
+        const emailInput = document.getElementById('email');
+        const emailError = document.getElementById('email-error');
+
+        emailInput.addEventListener('blur', () => {
+            if (emailInput.value && !emailInput.value.includes('@')) {
+                emailError.classList.remove('hidden');
+                emailInput.classList.add('border-neo-red');
+            } else {
+                emailError.classList.add('hidden');
+                emailInput.classList.remove('border-neo-red');
+            }
+        });
+
+        // Mascot Follows Typing
+        // A simple playful interaction: The "eye" pupil moves slightly based on input length
+        document.addEventListener('input', (e) => {
+            if (e.target.tagName === 'INPUT') {
+                const len = e.target.value.length;
+                const maxMove = 10;
+                // Limit movement
+                const move = Math.min(len, maxMove);
+                pupil.style.transform = `translateX(${move}px)`;
+            }
+        });
+
+        // Handle Submit (Simulation of Shake effect)
+        function handleSubmit(e) {
+            e.preventDefault();
+
+            // Simulating a failed login for the demo visual
+            // In production, check inputs here
+
+            const btn = document.getElementById('submit-btn');
+
+            // Add Shake class
+            btn.classList.add('shake-animation');
+            btn.classList.add('bg-neo-red');
+            btn.textContent = isLogin ? "INVALID CREDENTIALS" : "ERROR CREATING";
+
+            // Remove Shake class after animation
+            setTimeout(() => {
+                btn.classList.remove('shake-animation');
+                btn.classList.remove('bg-neo-red');
+                btn.textContent = isLogin ? "LOG IN" : "CREATE ACCOUNT";
+            }, 800);
+        }
+    </script>
+</body>
+
+</html>

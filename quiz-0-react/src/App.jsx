@@ -4,7 +4,7 @@ import './styles/App.css'
 function App() {
 
   return (
-    <AuthLayout title={Login}>Hello</AuthLayout>
+    <AuthLayout title="Login">Hello</AuthLayout>
   )
 }
 
