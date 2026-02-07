@@ -1,4 +1,4 @@
-# Projeto de Aprendizado React: Neo-Brutalist Quiz System
+# Projeto de Aprendizado
 
 ## Objetivos Técnicos
 
