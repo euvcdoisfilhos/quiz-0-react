@@ -1,10 +1,12 @@
 function AuthLayout({ children, title, subtitle }) {
     return (
-        <div className="min-h-screen flex">
+        <div className="min-h-screen flex flex-col-reverse lg:flex-row">
+
             {/*Left Panel*/}
-            <div className="bg-neo-yellow w-[50%]">
+
+            <div className="bg-neo-yellow w-full lg:w-1/2">
                 <div className="bg-white border-4">
-                    <div className="bg-black text-white font-bold">
+                    <div className="bg-black text-white font-bold text-16px font-bold p-4">
                         DID YOU KNOW?
                     </div>
                     <div>
@@ -17,8 +19,10 @@ function AuthLayout({ children, title, subtitle }) {
                     </div>
                 </div>
             </div>
+
             {/*Right Panel*/}
-            <div className="bg-neo-bg w-[50%]">
+
+            <div className="bg-neo-bg w-full lg:w-1/2">
 
             </div>
         </div>
