@@ -7,6 +7,8 @@
   --color-b-blue: #1A4CC1;
   --color-b-black: #000000;
   --color-b-white: #FFFFFF;
+  --color-b-grey: #4b5562;
+
   /* Bold Borders & Shadows */
   --spacing-b-thick: 4px;
   --shadow-b-flat: 4px 4px 0px 0px rgba(0, 0, 0, 1);
@@ -19,13 +21,23 @@
   --color-neo-green: #2ECC71;
   --color-neo-bg: #F3F4F6;
 
-/*Neo-Brutalist Fonts*/
+  /*Neo-Brutalist Fonts*/
   --font-sans: "Space Grotesk", sans-serif;
   --font-bold: "Space Grotesk", sans-serif;
 
 
   /*Neo-Brutalist Shadows*/
-  --shadow-neo: 4px 4px 0px 0px rgba(0,0,0,1);
-  --shadow-neo-sm: 2px 2px 0px 0px rgba(0,0,0,1);
-  --shadow-neo-hover: 6px 6px 0px 0px rgba(0,0,0,1);
+  --shadow-neo: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+  --shadow-neo-sm: 2px 2px 0px 0px rgba(0, 0, 0, 1);
+  --shadow-neo-hover: 6px 6px 0px 0px rgba(0, 0, 0, 1);
+}
+
+@layer base {
+  .login-h1{
+    @apply text-4xl font-bold m-2;
+  }
+
+  .login-p{
+    @apply text-[var(--color-b-grey)] text-lg font-bold m-2;
+  }
 }
