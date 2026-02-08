@@ -40,4 +40,8 @@
   .login-p{
     @apply text-[var(--color-b-grey)] text-lg font-bold m-2;
   }
+
+  .login-input{
+    @apply w-full border-4 border-black p-2 font-bold text-lg outline-none transition-all shadow-neo bg-white placeholder-gray-500 m-2;
+  }
 }
