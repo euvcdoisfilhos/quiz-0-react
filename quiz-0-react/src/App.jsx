@@ -1,10 +1,10 @@
-import AuthLayout from './components/AuthLayout'
+import AuthPageLayout from './components/AuthPageLayout'
 import './styles/App.css'
 
 function App() {
 
   return (
-    <AuthLayout title="Login">Hello</AuthLayout>
+    <AuthPageLayout></AuthPageLayout>
   )
 }
 
