@@ -1,3 +1,4 @@
+import eye from "../assets/eye.svg";
 function AuthLayout() {
     return (
         <div>
@@ -8,7 +9,16 @@ function AuthLayout() {
             <h2 className="login-h1">Welcome Back.</h2>
             <p className="login-p">Enter your details to sign in to your account.</p>
             <form action="">
-                <label htmlFor=""></label>
+                <label htmlFor="email">EMAIL ADDRESS</label>
+                <input className="login-input" type="email" id="email" name="email"/>
+                <br />
+                <label htmlFor="password">PASSWORD</label>
+                <div className="relative">
+                    <input className="login-input" type="password" id="password" name="password" />
+                    <button><img src={eye} alt="Eye" className="brightness-0"/></button>
+                </div>
+                <br />
+                <button type="submit">LOG IN</button>
             </form>
         </div>
     )
