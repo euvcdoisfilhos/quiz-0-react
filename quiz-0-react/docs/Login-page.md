@@ -31,6 +31,43 @@ To provide a professional experience, the following features are essential:
     - *Right*: The actual Auth form centered in a high-contrast container.
 *   **Center Card**: For a simpler look, a single floating card with a massive "Welcome Back" heading.
 
+## 5. Industry Best Practices for Auth Toggles
+
+When implementing a toggle between Login and Sign Up, follow these industry standards to ensure a professional and accessible experience:
+
+### What is "State" in React?
+
+Think of **State** as the component's **memory**. 
+*   **Plain Variables**: If you just use a normal variable (like `let mode = "login"`), React doesn't notice when it changes. The screen stays the same.
+*   **State**: When you use React State (the `useState` hook), React "watches" that variable. The moment you change it, React automatically **re-renders** (re-draws) the component on the screen to reflect the new data.
+
+In this project, we use state for:
+1.  **Auth Mode**: Is it `login` or `signup`?
+2.  **Password Visibility**: Is the password hidden or shown?
+
+---
+
+*   **Local State Management**:
+    Since only the **Right Panel** (`AuthLayout`) changes when switching between Login and Signup, the state should live directly within that component. This keeps the logic encapsulated and prevents the parent (`AuthPageLayout`) from needing to manage form-specific details.
+    
+    ```mermaid
+    graph TD
+        Parent["AuthPageLayout (Main Structure)"]
+        Parent --> ChildA["Left Panel (Static/Paulo Freire)"]
+        Parent --> ChildB["AuthLayout (Holds State 'isLogin')"]
+        ChildB -->|"isLogin: true"| LoginUI["Login Fields & Title"]
+        ChildB -->|"isLogin: false"| SignupUI["Signup Fields & Title"]
+    ```
+*   **Accessibility (WAI-ARIA)**:
+    - Use `role="tablist"` for the button container and `role="tab"` for each button.
+    - Use `aria-selected="true/false"` to tell screen readers which mode is active.
+    - Ensure sufficient color contrast between active and inactive buttons.
+*   **State Persistence**: Consider using URL query parameters (e.g., `/auth?mode=signup`) so users can be linked directly to the registration form.
+*   **Security & UX**:
+    - **Clear Sensitive Fields**: When switching from Signup to Login, clear the password fields to prevent data leakage if a user is in a public place.
+    - **Focus Management**: When the form changes, consider moving the focus to the first input of the new form (e.g., the "Name" field in Signup mode).
+*   **Performance**: Use React's conditional rendering (`{isLogin ? <LoginForm /> : <SignupForm />}`) to keep the DOM lean, or wrap them in `AnimatePresence` from Framer Motion for smooth transitions.
+
 ---
 
 ## ❓ Clarifying Questions for You
