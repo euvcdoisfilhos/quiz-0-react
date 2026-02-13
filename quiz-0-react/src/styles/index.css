@@ -44,4 +44,12 @@
   .login-input{
     @apply w-full border-4 border-black p-2 font-bold text-lg outline-none transition-all shadow-neo bg-white placeholder-gray-500 m-2;
   }
+
+  .eye-icon{
+    @apply absolute right-3 top-1/2 -translate-y-1/2;
+  }
+
+  .login-button{
+    @apply bg-black text-white p-3 w-full m-2 font-bold;
+  }
 }
