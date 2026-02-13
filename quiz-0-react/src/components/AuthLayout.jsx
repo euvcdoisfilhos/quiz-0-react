@@ -2,7 +2,7 @@ import eye from "../assets/eye.svg";
 function AuthLayout() {
     return (
         <div>
-            <div className="border-4 shadow-neo p-1 flex justify-center items-center w-[clamp(300px,500px,100%)] space-x-15">
+            <div className="border-4 shadow-neo p-1 flex justify-center items-center w-[clamp(300px,500px,100%)] space-x-15 m-2">
                 <button className="bg-b-yellow py-2 px-8 text-lg">LOGIN</button>
                 <button className="bg-b-yellow py-2 px-8 text-lg">SIGN UP</button>
             </div>
@@ -15,10 +15,10 @@ function AuthLayout() {
                 <label htmlFor="password">PASSWORD</label>
                 <div className="relative">
                     <input className="login-input" type="password" id="password" name="password" />
-                    <button><img src={eye} alt="Eye" className="brightness-0"/></button>
+                    <button className="eye-icon"><img src={eye} alt="Eye" className="brightness-0"/></button>
                 </div>
                 <br />
-                <button type="submit">LOG IN</button>
+                <button className="login-button shadow-neo" type="submit">LOG IN</button>
             </form>
         </div>
     )
